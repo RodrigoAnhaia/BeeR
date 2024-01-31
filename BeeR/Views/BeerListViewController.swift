@@ -58,20 +58,18 @@ extension BeerListViewController {
     
     fileprivate func configNavigationBar() {
         self.title = "Beer List"
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .search,
             target: self,
             action: #selector(didTapSearchBttn))
+        self.navigationItem.rightBarButtonItem?.tintColor = .white
         
-        
-       
     }
     
     @objc func didTapSearchBttn() {
         let vc = BeerSearchViewController()
         vc.title = "Beer Search"
-        vc.view.backgroundColor = .cyan
+        vc.view.backgroundColor = .purple
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -89,10 +87,28 @@ extension BeerListViewController: UITableViewDelegate, UITableViewDataSource {
         
         let beer = localBeers[indexPath.row]
         
-        cell.configure(with: BeersViewModel(beerName: beer.name ?? "", tagline: beer.tagline ?? ""))
+        cell.configure(with: BeerListViewModel(beerName: beer.name ?? "", tagline: beer.tagline ?? ""))
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let beer = self.localBeers[indexPath.row]
+        
+        DispatchQueue.main.async {
+            let vc = BeerDetailsViewController()
+            vc.title = "Beer Details"
+            guard let name = beer.name,
+                  let tagline = beer.tagline,
+                  let description = beer.description else { return }
+            
+            
+            vc.configure(with: BeerDetailsViewModel(beerName: name, tagline: tagline, description: description))
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+    }
     
 }

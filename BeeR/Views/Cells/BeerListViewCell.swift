@@ -67,7 +67,7 @@ class BeerListViewCell: UITableViewCell {
         fatalError("Could not render \(BeerListViewCell.self)")
     }
     
-    public func configure(with model: BeersViewModel) {
+    public func configure(with model: BeerListViewModel) {
         
         self.beerImageView.image = UIImage(named: "bottle")
         self.nameLabel.text = model.beerName
@@ -85,9 +85,7 @@ extension BeerListViewCell {
         self.grayView.addSubview(self.beerImageView)
         self.grayView.addSubview(self.detailsButton)
     }
-}
-
-extension BeerListViewCell {
+    
     fileprivate func setupConstraints() {
         NSLayoutConstraint.activate([
             

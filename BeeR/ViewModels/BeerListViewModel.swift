@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BeersViewModel {
+struct BeerListViewModel {
     let beerName: String
     let tagline: String
     
