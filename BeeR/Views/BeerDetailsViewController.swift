@@ -56,7 +56,7 @@ class BeerDetailsViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.view.backgroundColor = .systemBackground
-        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
     }
 }
 

@@ -18,7 +18,6 @@
 		6C14324F2B6980D9005D90AB /* BeerListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C14324E2B6980D9005D90AB /* BeerListViewCell.swift */; };
 		6C1432522B698582005D90AB /* BeerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1432512B698582005D90AB /* BeerListViewModel.swift */; };
 		6C1432542B6A6F25005D90AB /* BeerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1432532B6A6F25005D90AB /* BeerDetailsViewController.swift */; };
-		6C1432562B6A7017005D90AB /* BeerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1432552B6A7017005D90AB /* BeerSearchViewController.swift */; };
 		6C1432582B6A7B70005D90AB /* BeerDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1432572B6A7B70005D90AB /* BeerDetailsViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +35,6 @@
 		6C14324E2B6980D9005D90AB /* BeerListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerListViewCell.swift; sourceTree = "<group>"; };
 		6C1432512B698582005D90AB /* BeerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerListViewModel.swift; sourceTree = "<group>"; };
 		6C1432532B6A6F25005D90AB /* BeerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailsViewController.swift; sourceTree = "<group>"; };
-		6C1432552B6A7017005D90AB /* BeerSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerSearchViewController.swift; sourceTree = "<group>"; };
 		6C1432572B6A7B70005D90AB /* BeerDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				6C1432332B6962B8005D90AB /* BeerListViewController.swift */,
-				6C1432552B6A7017005D90AB /* BeerSearchViewController.swift */,
 				6C1432532B6A6F25005D90AB /* BeerDetailsViewController.swift */,
 				6C14324D2B6980B6005D90AB /* Cells */,
 			);
@@ -202,7 +199,6 @@
 				6C14324B2B69652F005D90AB /* Beers.swift in Sources */,
 				6C1432542B6A6F25005D90AB /* BeerDetailsViewController.swift in Sources */,
 				6C1432302B6962B8005D90AB /* AppDelegate.swift in Sources */,
-				6C1432562B6A7017005D90AB /* BeerSearchViewController.swift in Sources */,
 				6C1432322B6962B8005D90AB /* SceneDelegate.swift in Sources */,
 				6C1432522B698582005D90AB /* BeerListViewModel.swift in Sources */,
 				6C1432582B6A7B70005D90AB /* BeerDetailsViewModel.swift in Sources */,

@@ -32,4 +32,22 @@ class APICaller {
         }
         task.resume()
     }
+    
+    func search(with query: String, completion: @escaping (Result<[Beers], Error>)  -> Void) {
+        guard let query = query.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
+            let url = URL(string: "\(Constant.baseURL)?\(query)") else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data, error == nil else { return }
+            
+            do {
+                let results = try JSONDecoder().decode([Beers].self, from: data)
+                completion(.success(results))
+                
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
 }
