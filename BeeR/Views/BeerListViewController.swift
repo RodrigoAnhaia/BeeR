@@ -11,6 +11,8 @@ class BeerListViewController: UIViewController {
     private var localBeers: [Beers] = [Beers]()
     private var filteredBeer: [Beers]!
     
+    var config = UIContentUnavailableConfiguration.empty()
+    
     private let beerTableView: UITableView = {
         let table = UITableView()
         table.register(BeerListViewCell.self, forCellReuseIdentifier: BeerListViewCell.identifier)
@@ -46,6 +48,9 @@ class BeerListViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.beerTableView.frame = self.view.bounds
+        
+        self.config.image = UIImage(named: "placeholder")
+        self.config.text = "No results were found"
     }
 }
 
@@ -54,9 +59,9 @@ extension BeerListViewController {
         APICaller.getBeers { [weak self] result in
             switch result {
             case .success(let beers):
+                self?.localBeers.append(contentsOf: beers)
+                self?.filteredBeer = self?.localBeers
                 DispatchQueue.main.async {
-                    self?.localBeers = beers
-                    self?.filteredBeer = self?.localBeers
                     self?.beerTableView.reloadData()
                 }
                 
@@ -104,7 +109,7 @@ extension BeerListViewController {
     }
 }
 
-extension BeerListViewController: UISearchBarDelegate {
+extension BeerListViewController: UISearchBarDelegate, UIScrollViewDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.showsSearch(isHidden: false)
         
@@ -117,16 +122,46 @@ extension BeerListViewController: UISearchBarDelegate {
             return
             
         }
-        DispatchQueue.main.async {
+        
+        self.filteredBeer = self.localBeers.filter({ beer -> Bool in
+            beer.name?.lowercased().contains(searchText.lowercased() ) ?? false
+        })
+        
+        if !self.filteredBeer.isEmpty || self.filteredBeer.contains { $0.name?.lowercased() == searchText.lowercased() } {
+            self.contentUnavailableConfiguration = nil
             
-            self.filteredBeer = self.localBeers.filter({ beer -> Bool in
-                beer.name?.lowercased().contains(searchText.lowercased() ) ?? false })
+        } else {
+            self.contentUnavailableConfiguration = self.config
+            
+        }
+        
+        DispatchQueue.main.async {
             self.beerTableView.reloadData()
-            //                for beer in self.localBeers {
-            //                    if ((beer.name?.lowercased().contains(searchText.lowercased())) != nil) {
-            //
-            //                    }
-            //                }
+            
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = self.beerTableView.contentSize.height
+        
+        if (offsetY > contentHeight - 100 - scrollView.frame.height){
+            
+            guard !APICaller.shared.isPaginating else { return }
+            
+            APICaller.shared.fetchUrlLoadMore(paginating: true) { [weak self] result in
+                switch result {
+                case .success(let moreBeers):
+                    self?.filteredBeer.append(contentsOf: moreBeers)
+                    
+                    DispatchQueue.main.async {
+                        self?.beerTableView.reloadData()
+                        
+                    }
+                case .failure(let error):
+                    print(String(describing: error))
+                }
+            }
         }
     }
 }
@@ -150,7 +185,7 @@ extension BeerListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let beer = self.localBeers[indexPath.row]
+        let beer = self.filteredBeer[indexPath.row]
         
         DispatchQueue.main.async {
             let vc = BeerDetailsViewController()
