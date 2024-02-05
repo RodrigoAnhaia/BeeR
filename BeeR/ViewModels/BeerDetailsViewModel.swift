@@ -8,8 +8,10 @@
 import Foundation
 
 struct BeerDetailsViewModel {
+    let id: Int
     let beerName: String
     let tagline: String
-    let description: String
+    let details: String
+    let image_url: String
     
 }

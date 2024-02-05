@@ -9,13 +9,15 @@ import UIKit
 
 class BeerListViewCell: UITableViewCell {
     
+    // MARK: - Propreties
+    
     static let identifier = "BeerListViewCell"
+    private var randomImage: [String] = ["1", "2", "3", "4", "5", "6", "7"]
     
     private let grayView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(#colorLiteral(red: 0.9719485641, green: 0.9719484448, blue: 0.9719484448, alpha: 1))
-        view.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        view.backgroundColor = #colorLiteral(red: 0.9719485641, green: 0.9719484448, blue: 0.9719484448, alpha: 1)
         view.layer.cornerRadius = 20
         view.layer.masksToBounds = true
         return view
@@ -43,6 +45,7 @@ class BeerListViewCell: UITableViewCell {
     private let beerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.sizeToFit()
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -57,6 +60,8 @@ class BeerListViewCell: UITableViewCell {
         return button
     }()
     
+    // MARK: - View Lifecycle
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupLayout()
@@ -67,16 +72,31 @@ class BeerListViewCell: UITableViewCell {
         fatalError("Could not render \(BeerListViewCell.self)")
     }
     
+    // MARK: - Public Methods
+    
     public func configure(with model: BeerListViewModel) {
+        guard let url = URL(string: model.image_url) else { return }
         
-        self.beerImageView.image = UIImage(named: "bottle")
         self.nameLabel.text = model.beerName
         self.taglineLabel.text = model.tagline
+        
+        DispatchQueue.main.async {
+            if model.image_url.contains("keg") {
+                self.beerImageView.image = UIImage(named: self.randomImage.randomElement()!)
+            } else {
+                self.beerImageView.load(url: url)
+                
+            }
+            
+        }
     }
     
 }
 
 extension BeerListViewCell {
+    
+    // MARK: - Private Methods
+    
     fileprivate func setupLayout() {
         self.contentView.addSubview(self.grayView)
         self.contentView.sendSubviewToBack(self.grayView)
@@ -88,7 +108,6 @@ extension BeerListViewCell {
     
     fileprivate func setupConstraints() {
         NSLayoutConstraint.activate([
-            
             self.grayView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
             self.grayView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
             self.grayView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10),
@@ -106,7 +125,9 @@ extension BeerListViewCell {
             self.beerImageView.trailingAnchor.constraint(equalTo: self.nameLabel.leadingAnchor, constant: -10),
             self.beerImageView.trailingAnchor.constraint(equalTo: self.taglineLabel.leadingAnchor, constant: -10),
             self.beerImageView.bottomAnchor.constraint(equalTo: self.grayView.bottomAnchor, constant: -10),
-            self.beerImageView.widthAnchor.constraint(equalToConstant: 80),
+            self.beerImageView.heightAnchor.constraint(equalToConstant: 60),
+            self.beerImageView.widthAnchor.constraint(equalToConstant: 40),
+
             
             self.detailsButton.topAnchor.constraint(equalTo: self.grayView.topAnchor, constant: 10),
             self.detailsButton.trailingAnchor.constraint(equalTo: self.grayView.trailingAnchor, constant: -20),

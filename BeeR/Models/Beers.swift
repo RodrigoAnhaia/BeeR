@@ -14,5 +14,6 @@ struct Beers: Codable {
     var name: String?
     var tagline: String?
     var description: String?
+    var image_url: String?
    
 }

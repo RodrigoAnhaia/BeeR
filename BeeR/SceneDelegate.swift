@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    var launchScreenViewController: LaunchScreenViewController!
     
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -20,21 +21,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let navigationController = UINavigationController(rootViewController: BeerListViewController())
         
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = #colorLiteral(red: 0.2915426791, green: 0.5641855597, blue: 0.887370348, alpha: 1)
-        let titleAttribute = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold), NSAttributedString.Key.foregroundColor: UIColor.white]
-        appearance.titleTextAttributes = titleAttribute
-        
-        navigationController.navigationBar.standardAppearance = appearance
-        navigationController.navigationBar.scrollEdgeAppearance = appearance
-        navigationController.navigationBar.isTranslucent = false
-        navigationController.navigationBar.tintColor = .white
-        
         self.window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         self.window?.windowScene = windowScene
-        self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
+        
+        showLaunchScreen()
+        
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -65,9 +57,39 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
         
         // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
     
+    func showLaunchScreen() {
+        launchScreenViewController = LaunchScreenViewController()
+        window?.rootViewController?.modalTransitionStyle = .crossDissolve
+        window?.rootViewController = launchScreenViewController
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            self.hideLaunchScreen()
+        }
+    }
     
+    func hideLaunchScreen() {
+        launchScreenViewController.dismiss(animated: false, completion: nil)
+        
+        let navigationController = UINavigationController(rootViewController: BeerListViewController())
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = #colorLiteral(red: 0.2915426791, green: 0.5641855597, blue: 0.887370348, alpha: 1)
+        let titleAttribute = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold), NSAttributedString.Key.foregroundColor: UIColor.white]
+        appearance.titleTextAttributes = titleAttribute
+        
+        
+        navigationController.navigationBar.standardAppearance = appearance
+        navigationController.navigationBar.scrollEdgeAppearance = appearance
+        navigationController.navigationBar.isTranslucent = true
+        navigationController.navigationBar.tintColor = .white
+        navigationController.navigationBar.barTintColor = #colorLiteral(red: 0.1596794724, green: 0.3097692132, blue: 0.4841527343, alpha: 1)
+        navigationController.view.backgroundColor = #colorLiteral(red: 0.1596794724, green: 0.3097692132, blue: 0.4841527343, alpha: 1)
+        
+        self.window?.rootViewController = navigationController
+        self.window?.makeKeyAndVisible()
+    }
 }
 

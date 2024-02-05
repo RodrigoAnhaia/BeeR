@@ -10,15 +10,19 @@
 		6C1432302B6962B8005D90AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C14322F2B6962B8005D90AB /* AppDelegate.swift */; };
 		6C1432322B6962B8005D90AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1432312B6962B8005D90AB /* SceneDelegate.swift */; };
 		6C1432342B6962B8005D90AB /* BeerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1432332B6962B8005D90AB /* BeerListViewController.swift */; };
-		6C14323A2B6962B8005D90AB /* BeeR.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6C1432382B6962B8005D90AB /* BeeR.xcdatamodeld */; };
-		6C14323C2B6962BA005D90AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C14323B2B6962BA005D90AB /* Assets.xcassets */; };
-		6C14323F2B6962BA005D90AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C14323D2B6962BA005D90AB /* LaunchScreen.storyboard */; };
 		6C1432472B696477005D90AB /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1432462B696477005D90AB /* APICaller.swift */; };
 		6C14324B2B69652F005D90AB /* Beers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C14324A2B69652F005D90AB /* Beers.swift */; };
 		6C14324F2B6980D9005D90AB /* BeerListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C14324E2B6980D9005D90AB /* BeerListViewCell.swift */; };
 		6C1432522B698582005D90AB /* BeerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1432512B698582005D90AB /* BeerListViewModel.swift */; };
 		6C1432542B6A6F25005D90AB /* BeerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1432532B6A6F25005D90AB /* BeerDetailsViewController.swift */; };
 		6C1432582B6A7B70005D90AB /* BeerDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1432572B6A7B70005D90AB /* BeerDetailsViewModel.swift */; };
+		6C14325B2B6DA9D4005D90AB /* loadURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C14325A2B6DA9D4005D90AB /* loadURL.swift */; };
+		6C14325D2B6E6E5B005D90AB /* FavoriteBeersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C14325C2B6E6E5B005D90AB /* FavoriteBeersViewModel.swift */; };
+		6C14325F2B6EC216005D90AB /* FavoriteBeersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C14325E2B6EC216005D90AB /* FavoriteBeersViewController.swift */; };
+		6C9F42EB2B7031F600EBA44F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C9F42EA2B7031F600EBA44F /* Assets.xcassets */; };
+		6C9F42EF2B70328D00EBA44F /* sfLaunchScreen.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6C9F42EE2B70328D00EBA44F /* sfLaunchScreen.wav */; };
+		6C9F42F52B703FA500EBA44F /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9F42F42B703FA500EBA44F /* LaunchScreenViewController.swift */; };
+		6C9F42F72B7052CF00EBA44F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C9F42F62B7052CF00EBA44F /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,9 +30,6 @@
 		6C14322F2B6962B8005D90AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6C1432312B6962B8005D90AB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6C1432332B6962B8005D90AB /* BeerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerListViewController.swift; sourceTree = "<group>"; };
-		6C1432392B6962B8005D90AB /* BeeR.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BeeR.xcdatamodel; sourceTree = "<group>"; };
-		6C14323B2B6962BA005D90AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6C14323E2B6962BA005D90AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6C1432402B6962BA005D90AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1432462B696477005D90AB /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		6C14324A2B69652F005D90AB /* Beers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beers.swift; sourceTree = "<group>"; };
@@ -36,6 +37,13 @@
 		6C1432512B698582005D90AB /* BeerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerListViewModel.swift; sourceTree = "<group>"; };
 		6C1432532B6A6F25005D90AB /* BeerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailsViewController.swift; sourceTree = "<group>"; };
 		6C1432572B6A7B70005D90AB /* BeerDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailsViewModel.swift; sourceTree = "<group>"; };
+		6C14325A2B6DA9D4005D90AB /* loadURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadURL.swift; sourceTree = "<group>"; };
+		6C14325C2B6E6E5B005D90AB /* FavoriteBeersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBeersViewModel.swift; sourceTree = "<group>"; };
+		6C14325E2B6EC216005D90AB /* FavoriteBeersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteBeersViewController.swift; sourceTree = "<group>"; };
+		6C9F42EA2B7031F600EBA44F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6C9F42EE2B70328D00EBA44F /* sfLaunchScreen.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfLaunchScreen.wav; sourceTree = "<group>"; };
+		6C9F42F42B703FA500EBA44F /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		6C9F42F62B7052CF00EBA44F /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,16 +76,17 @@
 		6C14322E2B6962B8005D90AB /* BeeR */ = {
 			isa = PBXGroup;
 			children = (
+				6C9F42EC2B70325700EBA44F /* Resources */,
+				6C1432592B6DA9C3005D90AB /* extension */,
 				6C1432312B6962B8005D90AB /* SceneDelegate.swift */,
 				6C14322F2B6962B8005D90AB /* AppDelegate.swift */,
 				6C1432502B69856B005D90AB /* ViewModels */,
 				6C14324C2B697F9F005D90AB /* Views */,
 				6C1432482B696515005D90AB /* Managers */,
 				6C1432492B696525005D90AB /* Models */,
-				6C14323B2B6962BA005D90AB /* Assets.xcassets */,
-				6C14323D2B6962BA005D90AB /* LaunchScreen.storyboard */,
 				6C1432402B6962BA005D90AB /* Info.plist */,
-				6C1432382B6962B8005D90AB /* BeeR.xcdatamodeld */,
+				6C9F42EA2B7031F600EBA44F /* Assets.xcassets */,
+				6C9F42F62B7052CF00EBA44F /* Launch Screen.storyboard */,
 			);
 			path = BeeR;
 			sourceTree = "<group>";
@@ -101,7 +110,9 @@
 		6C14324C2B697F9F005D90AB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6C9F42F42B703FA500EBA44F /* LaunchScreenViewController.swift */,
 				6C1432332B6962B8005D90AB /* BeerListViewController.swift */,
+				6C14325E2B6EC216005D90AB /* FavoriteBeersViewController.swift */,
 				6C1432532B6A6F25005D90AB /* BeerDetailsViewController.swift */,
 				6C14324D2B6980B6005D90AB /* Cells */,
 			);
@@ -121,8 +132,33 @@
 			children = (
 				6C1432512B698582005D90AB /* BeerListViewModel.swift */,
 				6C1432572B6A7B70005D90AB /* BeerDetailsViewModel.swift */,
+				6C14325C2B6E6E5B005D90AB /* FavoriteBeersViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		6C1432592B6DA9C3005D90AB /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				6C14325A2B6DA9D4005D90AB /* loadURL.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
+		6C9F42EC2B70325700EBA44F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6C9F42ED2B70327E00EBA44F /* Sound Effects */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6C9F42ED2B70327E00EBA44F /* Sound Effects */ = {
+			isa = PBXGroup;
+			children = (
+				6C9F42EE2B70328D00EBA44F /* sfLaunchScreen.wav */,
+			);
+			path = "Sound Effects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,8 +219,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6C14323F2B6962BA005D90AB /* LaunchScreen.storyboard in Resources */,
-				6C14323C2B6962BA005D90AB /* Assets.xcassets in Resources */,
+				6C9F42F72B7052CF00EBA44F /* Launch Screen.storyboard in Resources */,
+				6C9F42EB2B7031F600EBA44F /* Assets.xcassets in Resources */,
+				6C9F42EF2B70328D00EBA44F /* sfLaunchScreen.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,30 +233,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C1432342B6962B8005D90AB /* BeerListViewController.swift in Sources */,
+				6C9F42F52B703FA500EBA44F /* LaunchScreenViewController.swift in Sources */,
 				6C14324B2B69652F005D90AB /* Beers.swift in Sources */,
 				6C1432542B6A6F25005D90AB /* BeerDetailsViewController.swift in Sources */,
 				6C1432302B6962B8005D90AB /* AppDelegate.swift in Sources */,
+				6C14325D2B6E6E5B005D90AB /* FavoriteBeersViewModel.swift in Sources */,
 				6C1432322B6962B8005D90AB /* SceneDelegate.swift in Sources */,
 				6C1432522B698582005D90AB /* BeerListViewModel.swift in Sources */,
 				6C1432582B6A7B70005D90AB /* BeerDetailsViewModel.swift in Sources */,
+				6C14325B2B6DA9D4005D90AB /* loadURL.swift in Sources */,
 				6C14324F2B6980D9005D90AB /* BeerListViewCell.swift in Sources */,
 				6C1432472B696477005D90AB /* APICaller.swift in Sources */,
-				6C14323A2B6962B8005D90AB /* BeeR.xcdatamodeld in Sources */,
+				6C14325F2B6EC216005D90AB /* FavoriteBeersViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		6C14323D2B6962BA005D90AB /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6C14323E2B6962BA005D90AB /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		6C1432412B6962BA005D90AB /* Debug */ = {
@@ -352,7 +381,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BeeR/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -379,7 +408,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BeeR/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -417,19 +446,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		6C1432382B6962B8005D90AB /* BeeR.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				6C1432392B6962B8005D90AB /* BeeR.xcdatamodel */,
-			);
-			currentVersion = 6C1432392B6962B8005D90AB /* BeeR.xcdatamodel */;
-			path = BeeR.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 6C1432242B6962B8005D90AB /* Project object */;
 }

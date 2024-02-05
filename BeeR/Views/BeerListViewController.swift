@@ -8,16 +8,26 @@
 import UIKit
 
 class BeerListViewController: UIViewController {
+    
+    // MARK: - Propreties
+    
     private var localBeers: [Beers] = [Beers]()
     private var filteredBeer: [Beers]!
     
-    var config = UIContentUnavailableConfiguration.empty()
+    private var config = UIContentUnavailableConfiguration.empty()
     
     private let beerTableView: UITableView = {
         let table = UITableView()
         table.register(BeerListViewCell.self, forCellReuseIdentifier: BeerListViewCell.identifier)
         table.separatorColor = .clear
         return table
+    }()
+    
+    private var refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refresh.tintColor = .label
+        return refresh
     }()
     
     private let searchBar: UISearchBar = {
@@ -28,6 +38,8 @@ class BeerListViewController: UIViewController {
         search.placeholder = "Search Beer..."
         return search
     }()
+    
+    // MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,10 +63,14 @@ class BeerListViewController: UIViewController {
         
         self.config.image = UIImage(named: "placeholder")
         self.config.text = "No results were found"
+        
     }
 }
 
 extension BeerListViewController {
+    
+    // MARK: - Private Methods
+    
     fileprivate func fetchData() {
         APICaller.getBeers { [weak self] result in
             switch result {
@@ -73,7 +89,13 @@ extension BeerListViewController {
     
     fileprivate func setupLayout() {
         self.view.addSubview(self.beerTableView)
-        
+        if #available(iOS 10.0, *) {
+            self.beerTableView.refreshControl = self.refreshControl
+            
+        } else {
+            self.beerTableView.addSubview(self.refreshControl)
+            
+        }
     }
     
     fileprivate func configNavigationBar() {
@@ -82,19 +104,20 @@ extension BeerListViewController {
         
     }
     
-    @objc func handleShowSearchBar() {
-        self.showsSearch(isHidden: true)
-        self.searchBar.becomeFirstResponder()
-        self.navigationItem.titleView?.tintColor = .white
-        
-    }
-    
     fileprivate func showsSearchBarButton(isHidden: Bool) {
         if isHidden {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            let searchButton = UIBarButtonItem(
                 barButtonSystemItem: .search,
                 target: self,
                 action: #selector(handleShowSearchBar))
+            
+            let favNaviButton = UIBarButtonItem(
+                image: UIImage(systemName: "heart.fill"),
+                style: .plain,
+                target: self,
+                action: #selector(handleFavoriteView))
+            
+            self.navigationItem.rightBarButtonItems = [searchButton, favNaviButton]
             
         } else {
             self.navigationItem.rightBarButtonItem?.isHidden = true
@@ -103,22 +126,78 @@ extension BeerListViewController {
     }
     
     fileprivate func showsSearch(isHidden: Bool) {
-        self.showsSearchBarButton(isHidden: !isHidden)
-        self.navigationItem.titleView = isHidden ? self.searchBar : nil
-        self.searchBar.showsCancelButton = isHidden
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            
+            let cancelButton = UIBarButtonItem(
+                barButtonSystemItem: .cancel,
+                target: self,
+                action: #selector(iPadHandleCancelButton))
+            self.navigationItem.rightBarButtonItem = cancelButton
+            
+            
+            self.showsSearchBarButton(isHidden: !isHidden)
+            self.searchBar.showsCancelButton = isHidden
+            self.navigationItem.titleView = isHidden ? self.searchBar : nil
+            self.navigationItem.rightBarButtonItem?.isHidden = false
+            
+        } else {
+            self.showsSearchBarButton(isHidden: !isHidden)
+            self.searchBar.showsCancelButton = isHidden
+            self.navigationItem.titleView = isHidden ? self.searchBar : nil
+            
+        }
     }
+    
+    // MARK: - Actions
+
+    @objc func handleShowSearchBar() {
+        self.showsSearch(isHidden: true)
+        self.searchBar.becomeFirstResponder()
+        self.navigationItem.titleView?.tintColor = .white
+        
+    }
+    
+    @objc func handleFavoriteView() {
+        let vc = FavoriteBeersViewController()
+        vc.title = "Favorites Beers"
+        vc.favoriteBeers = self.filteredBeer
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func iPadHandleCancelButton(sender: AnyObject) {
+        self.showsSearch(isHidden: false)
+        
+        searchBar.resignFirstResponder()
+        
+        navigationItem.titleView = nil
+        navigationItem.rightBarButtonItem = nil
+        
+        self.showsSearchBarButton(isHidden: true)
+        
+    }
+    
 }
+
+// MARK: - UISearchBarDelegate and UIScrollViewDelegate
 
 extension BeerListViewController: UISearchBarDelegate, UIScrollViewDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.showsSearch(isHidden: false)
+        self.contentUnavailableConfiguration = nil
+        self.refreshControl.beginRefreshing()
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.refreshControl.endRefreshing()
+            
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard !searchText.isEmpty else {
             self.filteredBeer = self.localBeers
             self.beerTableView.reloadData()
+            self.contentUnavailableConfiguration = nil
             return
             
         }
@@ -127,7 +206,8 @@ extension BeerListViewController: UISearchBarDelegate, UIScrollViewDelegate {
             beer.name?.lowercased().contains(searchText.lowercased() ) ?? false
         })
         
-        if !self.filteredBeer.isEmpty || self.filteredBeer.contains { $0.name?.lowercased() == searchText.lowercased() } {
+        if !self.filteredBeer.isEmpty ||
+            self.filteredBeer.contains(where: { $0.name?.lowercased() == searchText.lowercased() }) {
             self.contentUnavailableConfiguration = nil
             
         } else {
@@ -166,19 +246,24 @@ extension BeerListViewController: UISearchBarDelegate, UIScrollViewDelegate {
     }
 }
 
+// MARK: - UITableViewDelegate and UITableViewDataSource
+
 extension BeerListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.filteredBeer.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: BeerListViewCell.identifier, for: indexPath) as? BeerListViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier:
+                                                        BeerListViewCell.identifier, for: indexPath) as? BeerListViewCell else {
             return UITableViewCell()
         }
         
         let beer = self.filteredBeer[indexPath.row]
         
-        cell.configure(with: BeerListViewModel(beerName: beer.name ?? "", tagline: beer.tagline ?? ""))
+        cell.configure(with: BeerListViewModel(beerName: beer.name ?? "",
+                                               tagline: beer.tagline ?? "",
+                                               image_url: beer.image_url ?? ""))
         
         return cell
     }
@@ -190,16 +275,25 @@ extension BeerListViewController: UITableViewDelegate, UITableViewDataSource {
         DispatchQueue.main.async {
             let vc = BeerDetailsViewController()
             vc.title = "Beer Details"
+            
             guard let name = beer.name,
                   let tagline = beer.tagline,
-                  let description = beer.description else { return }
+                  let description = beer.description,
+                  let url = beer.image_url else { return }
             
-            
-            vc.configure(with: BeerDetailsViewModel(beerName: name, tagline: tagline, description: description))
+            vc.configure(with: BeerDetailsViewModel(id: beer.id,
+                                                    beerName: name,
+                                                    tagline: tagline,
+                                                    details: description,
+                                                    image_url: url))
             
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
 }

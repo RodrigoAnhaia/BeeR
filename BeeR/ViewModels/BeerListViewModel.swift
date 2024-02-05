@@ -10,5 +10,6 @@ import Foundation
 struct BeerListViewModel {
     let beerName: String
     let tagline: String
+    let image_url: String
     
 }
